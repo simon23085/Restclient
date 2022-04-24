@@ -29,4 +29,8 @@ Message::Message(long id1, long idr1, long date1, std::string txt) {
     text = txt
 }
 
+std::string Message::toString() {
+//todo implement
+}
+
 

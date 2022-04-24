@@ -20,6 +20,8 @@ public:
     std::string getText();
 
     Message(long id, long idr, long date, std::string txt);
+
+    std::string toString();
 };
 
 
