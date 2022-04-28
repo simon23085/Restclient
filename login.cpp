@@ -5,6 +5,7 @@
 Login::Login(QWidget *parent) :
         QWidget(parent), ui(new Ui::Login) {
     ui->setupUi(this);
+    QObject::connect(loginButton, &QPushButton::clicked, this, &buttonPressed);
 }
 
 Login::~Login() {
@@ -12,5 +13,6 @@ Login::~Login() {
 }
 
 void Login::buttonPressed() {
+    //std::cout << "got in buttonPressed" << std:endl;
     //todo process login
 }

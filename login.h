@@ -20,7 +20,6 @@ Q_OBJECT
 QPushButton * loginButton;
 QLineEdit * passwordInput;
 QLineEdit * usernameInput;
-QObject::connect(loginButton, &QPushButton::click, this, &buttonPressed);
 
 public slots:
     void buttonPressed();

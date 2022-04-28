@@ -31,6 +31,7 @@ Message::Message(long id1, long idr1, long date1, std::string txt) {
 
 std::string Message::toString() {
 //todo implement
+return "hello world";
 }
 
 
