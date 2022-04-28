@@ -3,6 +3,8 @@
 //
 
 #include "User.h"
+#include <cstring>
+#include <sstream>
 
 User::User(std::string name, std::string firstName, std::string email, std::string tel, std::string local,
            long birthday, std::string username, int pw, std::byte *profilePicture) {
@@ -76,29 +78,48 @@ User::User(std::string name, std::string firstName, std::string email, std::stri
     this->id = id;
 
 }
-
+//todo use std::to_string instead
+/*
 std::string User::toString() {
-    return          "User{" +
-                          "id=" + id +
-                          ", pw=" + pw +
-                          ", username='" + username + '\'' +
-                          ", name='" + name + '\'' +
-                          ", firstName='" + firstName + '\'' +
-                          ", email='" + email + '\'' +
-                          ", tel='" + tel + '\'' +
-                          ", local=" + local +
-                          ", birthday=" + birthday +
-                          ", profilePicture=" + byteToString(profilePicture) +
+    return          "User{ id=" << id <<
+                          ", pw=" << pw <<
+                          ", username='" << username + '\''<<
+                          ", name='" << name << '\'' <<
+                          ", firstName='" << firstName + '\'' <<
+                          ", email='" << email + '\'' <<
+                          ", tel='" << tel << '\'' <<
+                          ", local=" << locale <<
+                          ", birthday=" << birthday <<
+                          ", profilePicture=" << byteToString(profilePicture) +
                           '}';
+}*/
+std::ostream& operator<<(std::ostream &strm, User &u){
+    return strm << "User{ id=" << u.getId() << ", pw=" << u.getPw() <<
+                ", username='" << u.getUsername() + '\''<<
+                ", name='" << u.getName() << '\'' <<
+                ", firstName='" << u.getFirstName() + '\'' <<
+                ", email='" << u.getEmail() + '\'' <<
+                ", tel='" << u.getTel() << '\'' <<
+                ", local=" << u.getLocal()<<
+                ", birthday=" << u.getBirthday() <<
+                ", profilePicture=" << u.byteToString(u.getProfilePicture()) <<'}';
 }
 
-std::byte *User::getProfilePicture() {
-    return profilePicture;
-}
+
 
 char User::byteToString(std::byte *b) {
     int n = sizeof(b);
     char chars;
-    memcpy(chars, b, n);
+    memcpy(reinterpret_cast<void *>(chars), b, n);// memcpy(chars, b, n);
     return reinterpret_cast<char>(chars);
+}
+std::byte *User::getProfilePicture() {
+    return profilePicture;
+}
+
+std::string User::toString() {
+    std::ostringstream  myObjectStream;
+    myObjectStream << this;
+    std::string serializedObj = myObjectStream.str();
+    return serializedObj;
 }

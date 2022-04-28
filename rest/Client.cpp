@@ -7,21 +7,24 @@
 namespace sc = std::chrono;
 
 //get
-User Client::currentUser() {
+User* Client::currentUser() {
     http_request request(methods::GET);
     setAuth(&request.headers());
 
 
     http_client client(url+"/currentUser");
 
-    client.request(request).then([] (http_response response){
+    client.request(request).then([] (http_response response)->User*{
         if(response.status_code()==status_codes::OK){
             auto body = response.extract_json().get();
             User user = reinterpret_cast<User &&>(body.as_object());
+            User* u = new User(user);
+            return u;
         }else {
             return nullptr;
-        }
+        };
     });
+    return nullptr;
 }
 //post
 void Client::sendMessage(Message msg) {
@@ -51,11 +54,12 @@ bool Client::registerUser(User user) {
             return false;
         }
     });
+    return false;
 }
 //post
 bool Client::deregister(User user) {
     http_request request(methods::POST);
-    request.set_body(user.toString()));
+    request.set_body(user.toString());
     setAuth(&request.headers());
     http_client client(url+"/deregister");
 client.request(request).then([] (http_response response) {
@@ -66,9 +70,10 @@ client.request(request).then([] (http_response response) {
         return false;
     }
 });
+return false;
 }
 //get
-User Client::search(std::string searchString) {
+User* Client::search(std::string searchString) {
     http_request request(methods::GET);
     request.set_body(searchString);
     setAuth(&request.headers());
@@ -76,14 +81,17 @@ User Client::search(std::string searchString) {
 
     http_client client(url+"/search");
 
-    client.request(request).then([] (http_response response){
+    client.request(request).then([] (http_response response)-> User*{
         if(response.status_code()==status_codes::OK){
             auto body = response.extract_json().get();
             User user = reinterpret_cast<User &&>(body.as_object());
+            User* u = new User(user);
+            return u;
         }else {
             return nullptr;
         }
     });
+    return nullptr;
 }
 //get
 long Client::ping() {
@@ -92,7 +100,7 @@ long Client::ping() {
     http_client client(url+"/ping");
 
     auto time = sc::system_clock::now();
-    client.request(request).then([] (http_response response){
+    client.request(request).then([&time] (http_response response)->long{
         if(response.status_code()==status_codes::OK){
             auto body = response.extract_json().get();
             long val = body.as_integer();
@@ -100,10 +108,10 @@ long Client::ping() {
             auto millis = sc::duration_cast<sc::milliseconds>(since_epoch);
             long now = millis.count();
             return val-now;
-        }else {
-            return nullptr;
         }
+        return 0;
     });
+    return 0;
 }
 //post
 void Client::storeMessage(std::vector<Message> msgs) {

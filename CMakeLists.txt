@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.9)
 project(Restclient)
+
+find_package(cpprestsdk REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
@@ -18,5 +20,5 @@ target_link_libraries(Restclient
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        cpprestsdk::cpprest
         )
-

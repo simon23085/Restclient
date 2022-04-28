@@ -24,11 +24,11 @@ class Client {
     std::string username;
 
 public:
-    User currentUser();
+    User* currentUser();
     void sendMessage(Message msg);
     bool registerUser(User user);
     bool deregister(User user);
-    User search(std::string searchString);
+    User* search(std::string searchString);
     long ping();
     void storeMessage(std::vector<Message> msgs);
 

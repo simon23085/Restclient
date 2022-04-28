@@ -5,6 +5,7 @@
 #ifndef RESTCLIENT_USER_H
 #define RESTCLIENT_USER_H
 #include <string>
+#include <iostream>
 
 class User {
     long id;
@@ -30,16 +31,16 @@ public:
     //todo locale in cpp?
     std::string getLocal();
     long getBirthday();
-    std::string toString();
     std::byte* getProfilePicture();
+    std::string toString();
 
     User(std::string name, std::string firstName, std::string email, std::string tel, std::string local, long birthday,
-    std::string username, int pw, byte* profilePicture);
+    std::string username, int pw, std::byte* profilePicture);
 
     User(std::string name, std::string firstName, std::string email, std::string tel, std::string local, long birthday,
          std::string username, int pw, long id, std::byte* profilePicture);
 
-    char byteToString(std::byte *byte);
+    char byteToString(std::byte *b);
 };
 
 
