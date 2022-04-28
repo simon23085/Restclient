@@ -15,7 +15,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(Restclient main.cpp rest/Client.cpp rest/Client.h rest/User.cpp rest/User.h rest/Message.cpp rest/Message.h rest/LoginException.h)
+add_executable(Restclient main.cpp rest/Client.cpp rest/Client.h rest/User.cpp rest/User.h rest/Message.cpp rest/Message.h rest/LoginException.h login.cpp login.h login.ui)
 target_link_libraries(Restclient
         Qt::Core
         Qt::Gui
