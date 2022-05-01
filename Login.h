@@ -8,13 +8,14 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLineEdit>
+#include "QMainWindow"
 
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
 
-class Login : public QWidget {
+class Login : public QMainWindow {
 Q_OBJECT
 
 QPushButton * loginButton;

@@ -8,6 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt6 COMPONENTS
         Core
@@ -15,7 +16,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(Restclient main.cpp rest/Client.cpp rest/Client.h rest/User.cpp rest/User.h rest/Message.cpp rest/Message.h rest/LoginException.h login.cpp login.h login.ui)
+add_executable(Restclient main.cpp rest/Client.cpp rest/Client.h rest/User.cpp rest/User.h rest/Message.cpp rest/Message.h rest/LoginException.h Login.cpp Login.h Login.ui)
 target_link_libraries(Restclient
         Qt::Core
         Qt::Gui

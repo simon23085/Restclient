@@ -22,6 +22,12 @@ class Client {
     int port;
     int pw;
     std::string username;
+    std::vector<Message> messages;
+private:
+    Client() {}
+    //idk whats this
+    //Client(Client const&); //don't implement
+    //void operator=(Client const&);//don't implement
 
 public:
     User* currentUser();
@@ -31,6 +37,19 @@ public:
     User* search(std::string searchString);
     long ping();
     void storeMessage(std::vector<Message> msgs);
+    int getMessage();
+
+    static Client& getInstance(){
+        static Client instance;
+        return instance;
+    }
+    Client(Client const&)               = delete;
+    void operator=(Client const&)  = delete;
+
+    //background
+    void startBackground();
+    //todo change to stream
+    std::vector<Message> getMessages();
 
     //todo complete
     void storeKey();

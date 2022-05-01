@@ -4,6 +4,8 @@
 
 #include "Client.h"
 #include "LoginException.h"
+#include <thread>
+#include<iterator>
 namespace sc = std::chrono;
 
 //get
@@ -115,7 +117,7 @@ long Client::ping() {
 }
 //post
 void Client::storeMessage(std::vector<Message> msgs) {
-
+    //todo implement, for each and call sendMessage
 }
 
 void Client::setAuth(http_headers* headers) {
@@ -142,3 +144,39 @@ void Client::login(std::string username, std::string pw) {
         }
     });
 }
+
+void Client::startBackground() {
+    std::thread thread_obj([]() {
+       while(true){
+           //todo request
+
+           std::this_thread::sleep_for(std::chrono::milliseconds(500));
+       }
+    });
+}
+
+std::vector<Message> Client::getMessages() {
+    std::vector<Message> v;
+    std::copy(messages.begin(), messages.end(), std::back_inserter(v));
+    messages.clear();
+    return v;
+}
+
+//post
+int Client::getMessage() {
+    http_request request(methods::POST);
+    request.set_body(id);
+    setAuth(&request.headers());
+    http_client client(url+"/getMessage");
+    client.request(request).then([] (http_response response) {
+        /*if(response.status_code()==status_codes::OK){
+            auto body = response.extract_json().get();
+            int* arr = (int *) body.as_array();
+
+        }else {
+            return false;
+        }*/
+    });
+    return false;
+}
+
